@@ -1,0 +1,348 @@
+{
+  "characters": [
+    {
+      "name": "Luna",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "103944644789825536",
+      "playerName": ".lilaclotus"
+    },
+    {
+      "name": "Quin",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "706333498864042046",
+      "playerName": "memoriavetusta"
+    },
+    {
+      "name": "Verity Sinclair",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "glasgow",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode",
+      "tupperBrackets": "vl:",
+      "imageUrl": "https://i.pinimg.com/564x/7e/63/35/7e63353d1c94a2d3547d87d52b27a156.jpg"
+    },
+    {
+      "name": "Jacques",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "680973895297269791",
+      "playerName": "averageanon"
+    },
+    {
+      "name": "Tommaso",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "680973895297269791",
+      "playerName": "averageanon"
+    },
+    {
+      "name": "Campomanes",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "680973895297269791",
+      "playerName": "averageanon"
+    },
+    {
+      "name": "Lux",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "680973895297269791",
+      "playerName": "averageanon"
+    },
+    {
+      "name": "MrissyRizzy",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "494162709030371339",
+      "playerName": "vannnana"
+    },
+    {
+      "name": "Mari",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "263070067279921155",
+      "playerName": "star69"
+    },
+    {
+      "name": "Kamleika",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "494162709030371339",
+      "playerName": "vannnana"
+    },
+    {
+      "name": "sculpordwarf",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "494162709030371339",
+      "playerName": "vannnana"
+    },
+    {
+      "name": "Isaac",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Iskandar",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Watches",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "263070067279921155",
+      "playerName": "star69"
+    },
+    {
+      "name": "Jane",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "263070067279921155",
+      "playerName": "star69"
+    },
+    {
+      "name": "Reha",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "263070067279921155",
+      "playerName": "star69"
+    },
+    {
+      "name": "The late Pr. Eric Eton-Woodford (may he rest in peace)",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Suzanne",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Shadow",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Rv. Shiloh Bethel",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Dr. Jonathan Robershaw (Licensed Therapist)",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Jeremiah (Jerry) the Retainer",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "1180177606251921432",
+      "playerName": "anachronolia"
+    },
+    {
+      "name": "Riette",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "263070067279921155",
+      "playerName": "star69"
+    },
+    {
+      "name": "Heisenberg",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Jim Warlock",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Aria Vileblood",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Ruby Warlock",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Bones",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Logan",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Jenny Butcher",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "350456550504267776",
+      "playerName": "rozealpaca"
+    },
+    {
+      "name": "Andre/JesusOfBitches",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "534519321343557633",
+      "playerName": "defalt9643"
+    },
+    {
+      "name": "Elder Eli",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "534519321343557633",
+      "playerName": "defalt9643"
+    },
+    {
+      "name": "Mitch",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "521872829738909706",
+      "playerName": "princesapizza"
+    },
+    {
+      "name": "Milaneso",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "521872829738909706",
+      "playerName": "princesapizza"
+    },
+    {
+      "name": "Taxiarchos/ArchangelMichael",
+      "xp": 20,
+      "purchaseHistory": [],
+      "location": "",
+      "playerId": "534519321343557633",
+      "playerName": "defalt9643"
+    },
+    {
+      "name": "Jimmy",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode",
+      "imageUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/10/100647/3821869-jimcorrigan.jpg"
+    },
+    {
+      "name": "Birdie",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "213863980614025217",
+      "playerName": "quesito_uwu",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Marcus Eclipsis",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "680973895297269791",
+      "playerName": "averageanon",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Katherine M.B.",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "213863980614025217",
+      "playerName": "quesito_uwu",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Rosalind",
+      "xp": 20,
+      "location": "",
+      "tupperBrackets": "None",
+      "playerId": "400806469303533570",
+      "playerName": "gh0stf0rm",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Veronica Larson",
+      "location": "Glasgow",
+      "tupperBrackets": "vs:",
+      "xp": 20,
+      "playerId": "277148676814536704",
+      "imageUrl": "https://i.pinimg.com/564x/15/f0/54/15f054df29d7baa18dc93c1ce1b1ce77.jpg"
+    },
+    {
+      "name": "Eisenhardt",
+      "location": "Unknown",
+      "tupperBrackets": "none",
+      "xp": 20,
+      "imageUrl": "https://i.pinimg.com/736x/9d/f3/33/9df3332dd449b224eab9b06605fb3fdb.jpg",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode"
+    }
+  ]
+}
