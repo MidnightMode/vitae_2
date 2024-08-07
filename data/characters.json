@@ -343,6 +343,24 @@
       "imageUrl": "https://i.pinimg.com/736x/9d/f3/33/9df3332dd449b224eab9b06605fb3fdb.jpg",
       "playerId": "277148676814536704",
       "playerName": ".midnightmode"
+    },
+    {
+      "name": "Ridley",
+      "location": "Chicago, Illinois",
+      "tupperBrackets": "$$",
+      "xp": 20,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNFAA1vm5RV_FDMgOnKE-ThkO_LK7nTdhe06dxWdBr5GbasNuRe0Sr2dmdVW_hvoZgPmM&usqp=CAU",
+      "playerId": "898415219959795723",
+      "playerName": "excusegenerator"
+    },
+    {
+      "name": "Bartholomew Eisenhart",
+      "location": "Lyon",
+      "tupperBrackets": "bb:",
+      "xp": 20,
+      "imageUrl": "https://i.pinimg.com/564x/23/10/fb/2310fb520b7f1e639bf7dd37edfc4167.jpg",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode"
     }
   ]
 }
