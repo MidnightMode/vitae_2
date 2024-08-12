@@ -1,52 +1,35 @@
-const fs = require('fs');
-const path = require('path');
-const { prefix } = require('../config.json');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'help',
-    description: 'List all commands or info about a specific command.',
-    execute(message, args) {
-        const helpFilePath = path.join(__dirname, '../data/help.json');
+    description: 'Lists all available commands.',
+    async execute(message, args) {
+        // Get all available commands
+        const commands = message.client.commands.map(cmd => ({
+            name: `!${cmd.name}`,
+            description: cmd.description
+        }));
 
-        fs.readFile(helpFilePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading help file:', err);
-                return message.channel.send('There was an error retrieving the help information.');
-            }
+        // Create an embed for the help command
+        const embed = new EmbedBuilder()
+            .setTitle('Available Commands')
+            .setDescription('Here are all the available commands:')
+            .setColor('#0099ff')
+            .setTimestamp();
 
-            try {
-                const helpData = JSON.parse(data);
-                let helpMessage = '';
-
-                if (!args.length) {
-                    // If no specific category is provided, list all categories
-                    helpMessage = 'Here are the available categories:\n\n';
-                    helpData.categories.forEach(category => {
-                        helpMessage += `**${prefix}help !${category.name.toLowerCase()}**: ${category.description}\n\n`;
-                    });
-                } else {
-                    // Find the category based on the argument
-                    const categoryArg = args[0].toLowerCase().substring(1); // Remove the '!' prefix
-                    const category = helpData.categories.find(cat => cat.name.toLowerCase() === categoryArg);
-
-                    if (!category) {
-                        return message.channel.send(`Category ${args[0]} not found.`);
-                    }
-
-                    helpMessage = `**${category.name} Commands**\n\n`;
-
-                    category.commands.forEach(command => {
-                        helpMessage += `**${command.name}**: ${command.description}\n`;
-                        helpMessage += `  Usage: \`${command.usage}\`\n`;
-                        helpMessage += `  Example: \`${command.example.replace('!!', prefix)}\`\n\n`;
-                    });
-                }
-
-                message.channel.send(helpMessage);
-            } catch (error) {
-                console.error('Error parsing help file:', error);
-                message.channel.send('There was an error parsing the help information.');
-            }
+        // Add each command to the embed
+        commands.forEach(cmd => {
+            embed.addFields(
+                { name: cmd.name, value: cmd.description, inline: true }
+            );
         });
+
+        // Optionally add information about bat commands in a separate field
+        embed.addFields(
+            { name: 'Bat Commands', value: '`!bat start [name]`: Adopt a new bat.\n`!bat status`: Check bat status.\n`!bat feed`: Feed your bat.\n`!bat evolve`: Evolve your bat.\n`!bat rename [new name]`: Rename your bat.', inline: false }
+        );
+
+        // Send the embed message
+        message.channel.send({ embeds: [embed] });
     },
 };

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+// Create client with necessary intents and partials for DM handling
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -32,14 +33,31 @@ for (const file of behaviorFiles) {
     client.behaviors.set(behavior.name, behavior);
 }
 
+// Log when the bot is ready
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
+    // Start behaviors
+    client.behaviors.forEach(behavior => {
+        try {
+            if (typeof behavior.start === 'function') {
+                behavior.start(client);
+                console.log(`Started behavior: ${behavior.name}`);
+            } else {
+                console.error(`Behavior ${behavior.name} does not have a start function.`);
+            }
+        } catch (error) {
+            console.error(`Failed to start behavior: ${behavior.name}`, error);
+        }
+    });
 });
 
+// Handle messages
 client.on('messageCreate', async message => {
-    // Handle commands
+    // Ignore bot messages
     if (message.author.bot) return;
 
+    // Handle commands
     if (message.content.startsWith('!')) {
         const args = message.content.slice(1).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
@@ -47,8 +65,16 @@ client.on('messageCreate', async message => {
         if (client.commands.has(commandName)) {
             const command = client.commands.get(commandName);
 
+            // Log command usage details
+            const userRoles = message.member?.roles?.cache?.map(role => role.name).join(', ') || 'No roles';
+            console.log(`Command received: !${commandName} by ${message.author.tag}`);
+            console.log(`User ID: ${message.author.id}`);
+            console.log(`Roles: ${userRoles}`);
+            console.log(`Command: !${commandName} ${args.join(' ')}`);
+
             try {
-                await command.execute(message, args);
+                await command.execute(message, args, client);
+                console.log(`Successfully executed command: !${commandName} by ${message.author.tag}`);
             } catch (error) {
                 console.error('Error executing command:', error);
                 message.reply('There was an error trying to execute that command!');
@@ -70,4 +96,9 @@ client.on('messageCreate', async message => {
     }
 });
 
+// Log in to Discord
 client.login(process.env.BOT_TOKEN);
+
+// Login to Discord with the bot token
+client.login(process.env.BOT_TOKEN);
+
