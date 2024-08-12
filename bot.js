@@ -96,8 +96,7 @@ client.on('messageCreate', async message => {
     }
 });
 
-// Log in to Discord
-client.login(process.env.BOT_TOKEN);
+
 
 // Login to Discord with the bot token
 client.login(process.env.BOT_TOKEN);

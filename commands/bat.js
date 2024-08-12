@@ -1,5 +1,5 @@
 const db = require('../data/db');
-const { MessageAttachment, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'bat',
@@ -15,7 +15,7 @@ module.exports = {
         return message.channel.send(`You already have a bat named ${existingBat.name}.`);
       }
 
-      db.insertBat(userId, batName, 100, 0, 1, Date.now(), null);
+      db.insertBat(userId, batName, 100, 0, 1, Date.now(), null, 0);
       return message.channel.send(`You have adopted a new bat named ${batName}!`);
     }
 
@@ -26,6 +26,9 @@ module.exports = {
         return message.channel.send("You don't have a bat yet. Use `!bat start [name]` to adopt one.");
       }
 
+      const xpForNextLevel = (bat.level * 500);
+      const remainingXp = xpForNextLevel - bat.xp;
+
       const statusEmbed = new EmbedBuilder()
         .setTitle(`${bat.name}'s Status`)
         .setColor('#00FF00')
@@ -33,8 +36,9 @@ module.exports = {
         .setImage(bat.image_url || 'https://via.placeholder.com/150')
         .addFields(
           { name: 'Health', value: bat.health.toString(), inline: true },
-          { name: 'XP', value: bat.xp.toString(), inline: true },
-          { name: 'Evolution Stage', value: bat.evolution_stage.toString(), inline: true }
+          { name: 'XP', value: `${bat.xp} / ${xpForNextLevel} XP (Next Level in ${remainingXp} XP)`, inline: true },
+          { name: 'Level', value: bat.level.toString(), inline: true },
+          { name: 'Friendship Level', value: bat.friendship_level.toString(), inline: true }
         );
 
       return message.channel.send({ embeds: [statusEmbed] });
@@ -53,24 +57,30 @@ module.exports = {
 
       db.updateBatHealth(userId, healthGain);
       db.updateBatXp(userId, xpGain);
+      db.updateLastInteraction(userId, Date.now());
 
       return message.channel.send(`You fed ${bat.name}. Health: ${healthGain}, XP: ${xpGain}`);
     }
 
-    if (args[0] === 'evolve') {
+    if (args[0] === 'evolve' || args[0] === 'levelup') {
       const bat = db.getBatByUserId(userId);
 
       if (!bat) {
         return message.channel.send("You don't have a bat yet. Use `!bat start [name]` to adopt one.");
       }
 
-      if (bat.xp >= 100) { // Example threshold for evolution
-        const newEvolutionStage = bat.evolution_stage + 1;
-        db.updateBatEvolutionStage(userId, newEvolutionStage);
-        db.updateBatXp(userId, 0); // Reset XP after evolution
-        return message.channel.send(`${bat.name} has evolved to stage ${newEvolutionStage}!`);
+      const xpForNextLevel = (bat.level * 500);
+
+      if (bat.xp >= xpForNextLevel) {
+        const newLevel = bat.level + 1;
+        const remainingXp = bat.xp - xpForNextLevel;
+
+        db.updateBatLevel(userId, newLevel);
+        db.updateBatXp(userId, remainingXp); // Carry over remaining XP
+        return message.channel.send(`${bat.name} has leveled up to ${newLevel}!`);
       } else {
-        return message.channel.send(`${bat.name} needs more XP to evolve.`);
+        const remainingXp = xpForNextLevel - bat.xp;
+        return message.channel.send(`${bat.name} needs ${remainingXp} more XP to level up.`);
       }
     }
 
@@ -106,6 +116,20 @@ module.exports = {
       db.updateBatImage(userId, imageUrl);
 
       return message.channel.send(`Your bat's image has been updated.`);
+    }
+
+    if (args[0] === 'pet') {
+      const bat = db.getBatByUserId(userId);
+
+      if (!bat) {
+        return message.channel.send("You don't have a bat yet. Use `!bat start [name]` to adopt one.");
+      }
+
+      const friendshipGain = bat.friendship_level + 1;
+      db.updateBatFriendship(userId, friendshipGain);
+      db.updateLastInteraction(userId, Date.now());
+
+      return message.channel.send(`You petted ${bat.name}. Friendship Level: ${friendshipGain}`);
     }
   },
 };

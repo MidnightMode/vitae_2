@@ -1,7 +1,7 @@
 const Database = require('better-sqlite3');
 const db = new Database('database.db');
 
-// Create the bats table if it does not exist
+// Update: Create the bats table if it does not exist
 db.exec(`
   CREATE TABLE IF NOT EXISTS bats (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -9,9 +9,10 @@ db.exec(`
     name TEXT NOT NULL,
     health INTEGER NOT NULL,
     xp INTEGER NOT NULL,
-    evolution_stage INTEGER NOT NULL,
+    level INTEGER NOT NULL,
     last_interaction INTEGER NOT NULL,
-    image_url TEXT
+    image_url TEXT,
+    friendship_level INTEGER DEFAULT 0
   );
 `);
 
@@ -21,11 +22,11 @@ function getBatByUserId(userId) {
 }
 
 // Insert a new bat
-function insertBat(userId, name, health, xp, evolution_stage, last_interaction, image_url) {
+function insertBat(userId, name, health, xp, level, last_interaction, image_url, friendship_level) {
   return db.prepare(`
-    INSERT INTO bats (user_id, name, health, xp, evolution_stage, last_interaction, image_url)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `).run(userId, name, health, xp, evolution_stage, last_interaction, image_url);
+    INSERT INTO bats (user_id, name, health, xp, level, last_interaction, image_url, friendship_level)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(userId, name, health, xp, level, last_interaction, image_url, friendship_level);
 }
 
 // Update bat health
@@ -38,9 +39,19 @@ function updateBatXp(userId, xp) {
   return db.prepare('UPDATE bats SET xp = ? WHERE user_id = ?').run(xp, userId);
 }
 
-// Update bat evolution stage
-function updateBatEvolutionStage(userId, evolution_stage) {
-  return db.prepare('UPDATE bats SET evolution_stage = ? WHERE user_id = ?').run(evolution_stage, userId);
+// Update bat level
+function updateBatLevel(userId, level) {
+  return db.prepare('UPDATE bats SET level = ? WHERE user_id = ?').run(level, userId);
+}
+
+// Update bat friendship level
+function updateBatFriendship(userId, friendship_level) {
+  return db.prepare('UPDATE bats SET friendship_level = ? WHERE user_id = ?').run(friendship_level, userId);
+}
+
+// Update last interaction time
+function updateLastInteraction(userId, lastInteraction) {
+  return db.prepare('UPDATE bats SET last_interaction = ? WHERE user_id = ?').run(lastInteraction, userId);
 }
 
 // Update bat name
@@ -53,13 +64,21 @@ function updateBatImage(userId, image_url) {
   return db.prepare('UPDATE bats SET image_url = ? WHERE user_id = ?').run(image_url, userId);
 }
 
+// fetch all bats from the database
+function getAllBats() {
+    return db.prepare('SELECT * FROM bats').all();
+}
+
 // Export functions
 module.exports = {
   getBatByUserId,
   insertBat,
   updateBatHealth,
   updateBatXp,
-  updateBatEvolutionStage,
+  updateBatLevel,
+  updateBatFriendship,
+  updateLastInteraction,
   updateBatName,
   updateBatImage,
+  getAllBats,
 };
