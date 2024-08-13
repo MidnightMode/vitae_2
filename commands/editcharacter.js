@@ -2,12 +2,15 @@ const fs = require('fs');
 const path = require('path');
 const { MessageCollector } = require('discord.js');
 
+// Path to the characters.json file and assets directory
+const charactersPath = path.join(__dirname, '../data/characters.json');
+const assetsDir = path.join(__dirname, '../assets');
+
 module.exports = {
     name: 'editcharacter',
     description: 'Interactively edit a character\'s information.',
     category: 'Character',
     async execute(message, args) {
-        const charactersPath = path.join(__dirname, '../data/characters.json');
         const characterName = args.join(' ').trim();
 
         try {
@@ -34,7 +37,7 @@ module.exports = {
             let step = 1;
             let field;
 
-            collector.on('collect', response => {
+            collector.on('collect', async response => {
                 const userInput = response.content.trim().toLowerCase();
 
                 if (step === 1) {
@@ -48,25 +51,46 @@ module.exports = {
                     response.reply(`Please enter the new value for ${field}.`);
                     step = 2; // Move to the next step
                 } else if (step === 2) {
-                    // Update the character based on the field
-                    switch (field) {
-                        case 'name':
-                            const nameExists = charactersData.characters.some(c => c.name.toLowerCase() === userInput.toLowerCase());
-                            if (nameExists) {
-                                response.reply(`Character name "${userInput}" already exists. Please choose a different name.`);
-                                return collector.stop();
+                    // Handle image URL separately
+                    if (field === 'imageurl') {
+                        if (message.attachments.size > 0) {
+                            const attachment = message.attachments.first();
+                            const fileName = `${requesterId}-${Date.now()}-${attachment.name}`;
+                            const filePath = path.join(assetsDir, fileName);
+
+                            // Download and save the image
+                            const file = await attachment.download();
+                            fs.writeFileSync(filePath, file);
+
+                            // Use the local file path for the image URL
+                            character.imageUrl = `assets/${fileName}`;
+                        } else {
+                            const imageUrl = userInput;
+                            try {
+                                new URL(imageUrl); // Validate the URL
+                                character.imageUrl = imageUrl;
+                            } catch (error) {
+                                return response.reply('The provided image URL is invalid.');
                             }
-                            character.name = userInput;
-                            break;
-                        case 'location':
-                            character.location = userInput;
-                            break;
-                        case 'tupperbrackets':
-                            character.tupperBrackets = userInput;
-                            break;
-                        case 'imageurl':
-                            character.imageUrl = userInput;
-                            break;
+                        }
+                    } else {
+                        // Update character information
+                        switch (field) {
+                            case 'name':
+                                const nameExists = charactersData.characters.some(c => c.name.toLowerCase() === userInput.toLowerCase());
+                                if (nameExists) {
+                                    response.reply(`Character name "${userInput}" already exists. Please choose a different name.`);
+                                    return collector.stop();
+                                }
+                                character.name = userInput;
+                                break;
+                            case 'location':
+                                character.location = userInput;
+                                break;
+                            case 'tupperbrackets':
+                                character.tupperBrackets = userInput;
+                                break;
+                        }
                     }
 
                     // Save the updated data

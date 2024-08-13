@@ -293,7 +293,7 @@
       "tupperBrackets": "None",
       "playerId": "277148676814536704",
       "playerName": ".midnightmode",
-      "imageUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/10/100647/3821869-jimcorrigan.jpg"
+      "imageUrl": "assets/.midnightmode/Jimmy-1723565408596-1713599119_new_1675210222_FB_IMG_1675139296307.png"
     },
     {
       "name": "Birdie",
@@ -381,6 +381,24 @@
       "tupperBrackets": "aotw:",
       "xp": 20,
       "imageUrl": "https://i.pinimg.com/736x/93/93/7e/93937ea22cf0689a7ad65e6faa055b4d.jpg",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode"
+    },
+    {
+      "name": "Scott Cavendish",
+      "location": "Edinburgh",
+      "tupperBrackets": "scotty:",
+      "xp": 20,
+      "imageUrl": "https://i.pinimg.com/564x/98/73/a8/9873a826c386d191ef451c5b33824f26.jpg",
+      "playerId": "277148676814536704",
+      "playerName": ".midnightmode"
+    },
+    {
+      "name": "Donna",
+      "location": "Lyon",
+      "tupperBrackets": "none",
+      "xp": 20,
+      "imageUrl": "https://i.pinimg.com/736x/61/5f/ae/615faed1ec1b19c64cc74e6bc17ef12e.jpg",
       "playerId": "277148676814536704",
       "playerName": ".midnightmode"
     }

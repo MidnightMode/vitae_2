@@ -1,58 +1,74 @@
-const { EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
+
+// Path to the characters.json file and assets directory
+const charactersPath = path.join(__dirname, '../data/characters.json');
+const assetsDir = path.join(__dirname, '../assets');
 
 module.exports = {
     name: 'allcharacters',
-    description: 'Displays all characters for a specific user.',
+    description: 'Displays information about all characters owned by a specific player.',
     category: 'Character',
-    execute(message, args) {
-        // Path to the characters.json file
-        const charactersPath = path.join(__dirname, '../data/characters.json');
+    async execute(message, args) {
+        // Check if a player name was provided
+        if (args.length === 0) {
+            return message.channel.send('Please provide the player\'s name.');
+        }
+
+        const playerName = args.join(' ').trim();
 
         try {
-            // Read and parse characters.json
             const charactersData = JSON.parse(fs.readFileSync(charactersPath, 'utf8'));
-
-            // Check if a username was provided
-            const username = args.join(' ').trim();
-            if (!username) {
-                return message.reply('Please provide a username to see all their characters.');
+            
+            // Ensure charactersData and characters array are defined
+            if (!charactersData || !Array.isArray(charactersData.characters)) {
+                return message.channel.send('No characters data found.');
             }
 
-            // Find the user by username (case insensitive)
-            const user = message.guild.members.cache.find(member => member.user.username.toLowerCase() === username.toLowerCase());
-            if (!user) {
-                return message.reply(`User "${username}" not found.`);
+            // Filter characters based on the provided player name
+            const playerCharacters = charactersData.characters.filter(character => 
+                character.playerName && character.playerName.toLowerCase() === playerName.toLowerCase()
+            );
+
+            if (playerCharacters.length === 0) {
+                return message.channel.send(`No characters found for player "${playerName}".`);
             }
 
-            // Find all characters belonging to the user
-            const userCharacters = charactersData.characters.filter(c => c.playerId === user.id);
-
-            if (userCharacters.length === 0) {
-                return message.reply(`No characters found for user "${username}".`);
-            }
-
-            // Send an embed for each character
-            userCharacters.forEach(character => {
+            const embeds = playerCharacters.map(character => {
                 const embed = new EmbedBuilder()
-                    .setTitle(`${character.name}`)
-                    .setColor('#00FF00')
-                    .setTimestamp()
-                    .setImage(character.imageUrl || 'https://via.placeholder.com/150')
-                    .addFields(
-                        { name: 'Location', value: character.location || 'Unknown', inline: true },
-                        { name: 'Tupper Brackets', value: character.tupperBrackets || 'None', inline: true },
-                        { name: 'XP', value: character.xp.toString(), inline: true },
-                        { name: 'Player', value: user.user.username, inline: true }
-                    );
+                    .setTitle(character.name)
+                    .setColor('#FF0000')
+                    .setDescription(` **Location:** ${character.location}\n**Tupperbrackets:** ${character.tupperBrackets}`);
+                    
 
-                message.channel.send({ embeds: [embed] });
+                // Check if imageUrl is local or URL
+                if (character.imageUrl && character.imageUrl.startsWith('assets/')) {
+                    const filePath = path.join(__dirname, '../', character.imageUrl);
+
+                    if (fs.existsSync(filePath)) {
+                        // Create attachment and use in embed
+                        const attachment = new AttachmentBuilder(filePath, { name: path.basename(filePath) });
+                        embed.setImage('attachment://' + attachment.name); // Use the filename in the embed
+                        return { embeds: [embed], files: [attachment] };
+                    } else {
+                        embed.setImage(''); // Remove image if file not found
+                    }
+                } else if (character.imageUrl) {
+                    // If imageUrl is a URL, use it directly in the embed
+                    embed.setImage(character.imageUrl);
+                }
+
+                return { embeds: [embed] };
             });
 
+            // Send all embeds
+            for (const embed of embeds) {
+                await message.channel.send(embed);
+            }
         } catch (error) {
-            console.error('Error reading or parsing characters file:', error);
-            message.reply('An error occurred while fetching character information.');
+            console.error('Error displaying characters for player:', error);
+            message.reply('An error occurred while retrieving character information.');
         }
     },
 };

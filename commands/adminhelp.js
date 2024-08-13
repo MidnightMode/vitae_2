@@ -29,7 +29,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle('Admin Commands')
             .setDescription('Here are all the admin commands:')
-            .setColor('#FF0000') // Red color for admin commands
+            .setColor('#FF0000') 
             .setTimestamp();
 
         // Add each admin command to the embed
