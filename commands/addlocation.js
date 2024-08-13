@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
     name: 'addlocation',
     description: 'Update the location of a character.',
+    category: 'Character',
     execute(message, args) {
         // Combine args back into a single string to handle quotes
         const input = args.join(' ');

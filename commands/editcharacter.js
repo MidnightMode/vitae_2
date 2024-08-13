@@ -5,6 +5,7 @@ const { MessageCollector } = require('discord.js');
 module.exports = {
     name: 'editcharacter',
     description: 'Interactively edit a character\'s information.',
+    category: 'Character',
     async execute(message, args) {
         const charactersPath = path.join(__dirname, '../data/characters.json');
         const characterName = args.join(' ').trim();

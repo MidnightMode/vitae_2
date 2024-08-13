@@ -10,6 +10,7 @@ const maxRecentTruths = 10; // Maximum number of recent truths to keep in memory
 module.exports = {
     name: 'truth',
     description: 'Replies with a random truth question',
+    category: 'Game',
     execute(message) {
         // Set a 6-second delay before executing the command
         setTimeout(() => {

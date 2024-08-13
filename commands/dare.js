@@ -10,6 +10,7 @@ const maxRecentDares = 10; // Maximum number of recent dares to keep in memory
 module.exports = {
     name: 'dare',
     description: 'Replies with a random dare',
+    category: 'Game',
     execute(message) {
         // Set a 6-second delay before executing the command
         setTimeout(() => {

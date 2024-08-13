@@ -5,6 +5,7 @@ const config = require('../config.json'); // Ensure this path is correct
 module.exports = {
     name: 'movienight',
     description: 'Generates a poll for selecting vampire movies',
+    category: 'Event',
     async execute(message, args) {
         // Ensure command is used in the correct channel
         if (message.channel.id !== config.modBotsChannelId) {

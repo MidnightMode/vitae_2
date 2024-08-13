@@ -8,6 +8,7 @@ let lastRecommendedBookId = null; // Variable to store the ID of the last recomm
 module.exports = {
     name: 'readingmaterial',
     description: 'Displays a book about or featuring vampires.',
+    category: 'Out of Character',
     async execute(message) {
         const query = 'vampire';
 

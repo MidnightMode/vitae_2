@@ -1,9 +1,28 @@
 const db = require('../data/db');
+const reactionsItemsDb = require('../data/reactions-items-db'); 
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'bat',
   description: 'Manage your pet bat!',
+  category: 'Virtual Pet Bat',
+  detailedDescription: `
+**!bat start [name]**: Adopt a new bat".
+
+**!bat status**: Check the current status of your bat. \`!bat start [name]\`.
+
+**!bat feed**: Feed your bat to restore health and gain XP.
+
+**!bat evolve** or **!bat levelup**: Evolve your bat to the next level if it has enough XP.
+
+**!bat rename [new name]**: Give your bat a new name. 
+
+**!bat setimage [url]**: Set a new image for your bat using the provided URL.
+
+**!bat pet**: Increase the friendship level of your bat by petting it.
+
+**!bat checkin**: Check-in your bat after an adventure, and receive random reactions and items.
+  `,
   async execute(message, args) {
     const userId = message.author.id;
 
@@ -131,5 +150,41 @@ module.exports = {
 
       return message.channel.send(`You petted ${bat.name}. Friendship Level: ${friendshipGain}`);
     }
+
+    if (args[0] === 'checkin') {
+      const bat = db.getBatByUserId(userId);
+
+      if (!bat) {
+        return message.channel.send("You don't have a bat yet. Use `!bat start [name]` to adopt one.");
+      }
+
+      // Get a random reaction and item
+      const reactions = reactionsItemsDb.getReactions();
+      const items = reactionsItemsDb.getItems();
+
+      // Check if reactions and items are not empty
+      if (reactions.length === 0 || items.length === 0) {
+        return message.channel.send("No reactions or items available.");
+      }
+
+      // Get a random reaction and item
+      const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+      const randomItem = items[Math.floor(Math.random() * items.length)];
+
+      // Create the embed
+      const checkinEmbed = new EmbedBuilder()
+        .setTitle(`${bat.name} Check-In`)
+        .setColor('#00FF00')
+        .setDescription(`Your bat has returned from its adventures!`)
+        .addFields(
+          { name: 'Reaction', value: randomReaction, inline: true },
+          { name: 'Item', value: randomItem.item_name, inline: true },
+          { name: 'Item Description', value: randomItem.item_description || 'No description', inline: false }
+        )
+        .setTimestamp();
+
+      return message.channel.send({ embeds: [checkinEmbed] });
+    }
   },
 };
+

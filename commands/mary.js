@@ -9,6 +9,7 @@ const charactersFilePath = path.join(__dirname, '../data/characters.json');
 module.exports = {
     name: 'mary',
     description: 'Pick three random characters from the list.',
+    category: 'Game',
     execute(message, args) {
         // Set a 6-second delay before executing the command
         setTimeout(() => {

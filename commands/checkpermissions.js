@@ -3,6 +3,7 @@ const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 module.exports = {
   name: 'checkpermissions',
   description: 'Checks and displays the bot\'s permissions in a specified channel.',
+  category: 'Admin',
   async execute(message, args) {
     // Check if the user provided a channel ID or if the command is invoked in a channel
     const channelId = args[0] ? args[0] : message.channel.id;

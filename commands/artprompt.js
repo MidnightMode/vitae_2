@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
     name: 'artprompt',
     description: 'Generates a random art prompt for inspiration',
+    category: 'Out of Character',
     execute(message) {
         console.log('artprompt command executed');
 

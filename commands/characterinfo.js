@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
     name: 'characterinfo',
     description: 'Displays information about a character.',
+    category: 'Character',
     execute(message, args) {
         // Path to the characters.json file
         const charactersPath = path.join(__dirname, '../data/characters.json');
@@ -44,3 +45,4 @@ module.exports = {
         }
     },
 };
+

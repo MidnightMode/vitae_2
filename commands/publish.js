@@ -8,6 +8,7 @@ const channelConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'dat
 module.exports = {
     name: 'publish',
     description: 'Publish messages from the hidden channel to a specified channel by name',
+    category: 'Admin',
     async execute(message, args) {
         // Ensure the command is used in the correct channel
         if (message.channel.id !== channelConfig.hiddenChannelId) {

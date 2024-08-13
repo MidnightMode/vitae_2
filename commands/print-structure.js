@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
   name: 'printstructure',
   description: 'Prints the file structure of the bot to the console, excluding node_modules.',
+  category: 'Admin',
   async execute(message, args) {
     // Define the root directory (the bot's root directory)
     const rootDir = path.resolve(__dirname, '../'); // Adjust if your file structure is different

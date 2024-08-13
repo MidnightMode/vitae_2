@@ -3,6 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     name: 'info',
     description: 'Displays information about the Vitae bot and available commands.',
+    category: 'Misc',
     execute(message) {
         const embed = new EmbedBuilder()
             .setTitle('Vitae Bot Information')

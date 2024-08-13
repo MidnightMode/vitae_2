@@ -7,6 +7,7 @@ const charactersPath = path.join(__dirname, '../data/characters.json');
 module.exports = {
     name: 'addcharacter',
     description: 'Adds a new character to the list.',
+    category: 'Character',
     async execute(message, args) {
         const defaultXP = 20;
 

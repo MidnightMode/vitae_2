@@ -1,11 +1,12 @@
+const db = require('../data/db');  // Move the import to the top for clarity
+
 module.exports = {
     name: 'batHealthDecay',
     start(client) {
         console.log('Bat health decay behavior started.');
 
-        // Example behavior: Decrease bat health over time
-        setInterval(async () => {
-            const db = require('../data/db');  // Adjust the path if necessary
+        // Function to handle the health decay logic
+        async function decayBatHealth() {
             try {
                 // Fetch all bat data
                 const bats = db.getAllBats();
@@ -23,6 +24,12 @@ module.exports = {
             } catch (error) {
                 console.error('Error processing bat health decay:', error);
             }
-        }, 3600000);  // Run this every hour (3600000 milliseconds)
+        }
+
+        // Set the interval to run decayBatHealth every hour (3600000 ms)
+        setInterval(decayBatHealth, 3600000);
+
+        // Optionally run the decay function immediately on startup
+        decayBatHealth();
     }
 };

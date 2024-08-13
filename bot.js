@@ -54,8 +54,7 @@ client.once('ready', () => {
 
 // Handle messages
 client.on('messageCreate', async message => {
-    // Ignore bot messages
-    if (message.author.bot) return;
+
 
     // Handle commands
     if (message.content.startsWith('!')) {

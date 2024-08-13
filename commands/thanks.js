@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
     name: 'thanks',
     description: 'Displays a list of credits and contributions.',
+    category: 'Credits',
     execute(message, args) {
         // Path to the credits JSON file
         const creditsFilePath = path.join(__dirname, '../data/credits.json');

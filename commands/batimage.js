@@ -6,6 +6,7 @@ let sentBatPictures = []; // Array to track sent bat pictures
 module.exports = {
     name: 'batimage',
     description: 'Posts a random picture of a cute bat.',
+    category: 'Misc',
     execute(message, args) {
         const dataPath = path.join(__dirname, '../data/batPictures.json');
         let batData;
