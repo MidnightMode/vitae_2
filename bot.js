@@ -42,9 +42,14 @@ if (fs.existsSync(behaviorPath)) {
     console.log("No behaviors directory found, skipping behavior loading.");
 }
 
+// Add a log to check the bot start-up process
+console.log('Bot process starting...');
+
 // Log when the bot is ready
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    // Add a log to track readiness
+    console.log('Bot is now ready!');
 
     // Start behaviors
     client.behaviors.forEach(behavior => {
@@ -63,6 +68,7 @@ client.once('ready', () => {
 
 // Handle messages
 client.on('messageCreate', async message => {
+    console.log(`Received message: ${message.content} from ${message.author.tag}`);
 
     // Handle commands
     if (message.content.startsWith('!')) {
@@ -112,6 +118,14 @@ app.get('/', (req, res) => {
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
+    
     // Log in to Discord once the server is up
-    client.login(process.env.BOT_TOKEN);
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Bot is starting...');
+        client.login(process.env.BOT_TOKEN).then(() => {
+            console.log('Bot logged in successfully');
+        }).catch(err => {
+            console.error('Error logging in:', err);
+        });
+    }
 });
