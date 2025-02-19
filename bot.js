@@ -79,7 +79,7 @@ client.on('messageCreate', async message => {
                 message.reply('There was an error trying to execute that command!');
             }
         } else {
-            message.channel.send(`Invalid command: ${commandName}. Use !help to see the list of available commands.`);
+            ;
         }
     }
 
