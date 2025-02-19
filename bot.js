@@ -38,25 +38,15 @@ if (fs.existsSync(behaviorPath)) {
         const behavior = require(`./behaviors/${file}`);
         client.behaviors.set(behavior.name, behavior);
     }
-} else {
-    console.log("No behaviors directory found, skipping behavior loading.");
 }
-
-// Add a log to check the bot start-up process
-console.log('Bot process starting...');
 
 // Log when the bot is ready
 client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    // Add a log to track readiness
-    console.log('Bot is now ready!');
-
     // Start behaviors
     client.behaviors.forEach(behavior => {
         try {
             if (typeof behavior.start === 'function') {
                 behavior.start(client);
-                console.log(`Started behavior: ${behavior.name}`);
             } else {
                 console.error(`Behavior ${behavior.name} does not have a start function.`);
             }
@@ -68,8 +58,6 @@ client.once('ready', () => {
 
 // Handle messages
 client.on('messageCreate', async message => {
-    console.log(`Received message: ${message.content} from ${message.author.tag}`);
-
     // Handle commands
     if (message.content.startsWith('!')) {
         const args = message.content.slice(1).trim().split(/ +/);
@@ -78,31 +66,19 @@ client.on('messageCreate', async message => {
         if (client.commands.has(commandName)) {
             const command = client.commands.get(commandName);
 
-            // Log command usage details
-            const userRoles = message.member?.roles?.cache?.map(role => role.name).join(', ') || 'No roles';
-            console.log(`Command received: !${commandName} by ${message.author.tag}`);
-            console.log(`User ID: ${message.author.id}`);
-            console.log(`Roles: ${userRoles}`);
-            console.log(`Command: !${commandName} ${args.join(' ')}`);
-
             try {
                 await command.execute(message, args, client);
-                console.log(`Successfully executed command: !${commandName} by ${message.author.tag}`);
             } catch (error) {
                 console.error('Error executing command:', error);
                 message.reply('There was an error trying to execute that command!');
             }
-        } else {
-            console.log(`Command not found: !${commandName}`);
         }
     }
 
     // Handle DMs
     if (message.channel.type === 'DM') {
-        console.log(`Received DM from ${message.author.tag}: ${message.content}`);
         try {
             await message.channel.send('Hi! You are DMing me now!');
-            console.log(`Replied with 'Hi! You are DMing me now!' to ${message.author.tag}`);
         } catch (error) {
             console.error('Error sending DM response:', error);
         }
@@ -117,14 +93,9 @@ app.get('/', (req, res) => {
 // Start listening on the port specified by Cloud Run (or default to 8080)
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-    
     // Log in to Discord once the server is up
     if (process.env.NODE_ENV !== 'production') {
-        console.log('Bot is starting...');
-        client.login(process.env.BOT_TOKEN).then(() => {
-            console.log('Bot logged in successfully');
-        }).catch(err => {
+        client.login(process.env.BOT_TOKEN).catch(err => {
             console.error('Error logging in:', err);
         });
     }
