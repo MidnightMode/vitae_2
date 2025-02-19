@@ -2,6 +2,10 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const express = require('express');
+
+// Create express app for Cloud Run
+const app = express();
 
 // Create client with necessary intents and partials for DM handling
 const client = new Client({
@@ -99,5 +103,15 @@ client.on('messageCreate', async message => {
     }
 });
 
-// Login to Discord with the bot token
-client.login(process.env.BOT_TOKEN);
+// Create a health check route for Cloud Run to ensure the service is alive
+app.get('/', (req, res) => {
+    res.status(200).send('Bot is running!');
+});
+
+// Start listening on the port specified by Cloud Run (or default to 8080)
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    // Log in to Discord once the server is up
+    client.login(process.env.BOT_TOKEN);
+});
