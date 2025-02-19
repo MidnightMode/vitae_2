@@ -27,10 +27,15 @@ for (const file of commandFiles) {
 }
 
 // Load behavior files
-const behaviorFiles = fs.readdirSync(path.join(__dirname, 'behaviors')).filter(file => file.endsWith('.js'));
-for (const file of behaviorFiles) {
-    const behavior = require(`./behaviors/${file}`);
-    client.behaviors.set(behavior.name, behavior);
+const behaviorPath = path.join(__dirname, 'behaviors');
+if (fs.existsSync(behaviorPath)) {
+    const behaviorFiles = fs.readdirSync(behaviorPath).filter(file => file.endsWith('.js'));
+    for (const file of behaviorFiles) {
+        const behavior = require(`./behaviors/${file}`);
+        client.behaviors.set(behavior.name, behavior);
+    }
+} else {
+    console.log("No behaviors directory found, skipping behavior loading.");
 }
 
 // Log when the bot is ready
@@ -55,7 +60,6 @@ client.once('ready', () => {
 // Handle messages
 client.on('messageCreate', async message => {
 
-
     // Handle commands
     if (message.content.startsWith('!')) {
         const args = message.content.slice(1).trim().split(/ +/);
@@ -79,7 +83,7 @@ client.on('messageCreate', async message => {
                 message.reply('There was an error trying to execute that command!');
             }
         } else {
-            ;
+            console.log(`Command not found: !${commandName}`);
         }
     }
 
@@ -95,8 +99,5 @@ client.on('messageCreate', async message => {
     }
 });
 
-
-
 // Login to Discord with the bot token
 client.login(process.env.BOT_TOKEN);
-
